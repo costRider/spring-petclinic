@@ -53,7 +53,7 @@ spec:
             # ✅ Whatap + 기존 JVM 옵션 (덮어쓰기 주의 OK)
             - name: JAVA_TOOL_OPTIONS
               value: >-
-                -javaagent:/whatap/whatap.agent.jar
+                -javaagent:/whatap/whatap.agent-2.2.67.jar
                 -Dwhatap.server.host=$(WHATAP_SERVER_HOST)
                 -Dlicense=$(WHATAP_LICENSE)
                 -Dwhatap.micro.enabled=$(WHATAP_MICRO_ENABLED)
