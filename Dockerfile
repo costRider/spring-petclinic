@@ -42,7 +42,7 @@ RUN set -eux; \
 # =========================
 # 3) Runtime
 # =========================
-FROM ${DISTROLESS_IMAGE}
+FROM gcr.io/distroless/java21-debian12:nonroot
 WORKDIR /app
 
 COPY --from=builder /app/app.jar /app/app.jar
