@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: petclinic
+  namespace: petclinic-ns
+  annotations:
+
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+
+    # 헬스체크 설정 LB전용 HealthCheck
+    alb.ingress.kubernetes.io/healthcheck-path: /healthz-lb
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+            #LB 헬스체크 전용
+          - path: /healthz-lb
+            pathType: Prefix
+            backend:
+              service:
+                name: lb-health
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: petclinic
+                port:
+                  number: 80
